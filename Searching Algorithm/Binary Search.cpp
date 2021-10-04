@@ -1,6 +1,7 @@
 // Search an element in a given array
 // a[5] = 6 8 12 14 16, key = 12
 // output = 2(which is nothing but the index of 12)
+// Time Complexity O(log n)
 
 #include<iostream>
 using namespace std;
