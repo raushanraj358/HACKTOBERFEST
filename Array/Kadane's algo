@@ -1,0 +1,27 @@
+//Find the largest contiguous array sum
+#include<iostream>
+using namespace std;
+int main(){
+	int n;
+	cin >> n;
+	
+	while(n--){
+		int x;
+		cin >> x;
+		int a[x];
+		int ms =0;
+	    int cs = 0;	
+		for(int i = 0; i < x; i++){
+		cin >> a[i];
+		}
+		for(int j = 0; j < x ; j++){
+			cs += a[j];
+			if(cs < 0){
+				cs = 0;
+			}
+			ms = max(cs,ms);
+		}
+		cout << ms  << endl;
+
+	}
+}
