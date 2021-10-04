@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int find(TreeNode* root,int& diameter){
+        if(root == NULL){
+            return 0;
+        }
+        int lh = find(root->left,diameter); // traverse left subtree
+        int rh = find(root->right,diameter); // traverse right subtree
+        diameter = max(diameter,lh+rh); // calculate diameter
+        return 1+ max(lh,rh);     
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int diameter = 0;
+        find(root,diameter);
+        return diameter;
+        
+    }
+};
