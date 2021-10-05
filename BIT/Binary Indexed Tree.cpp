@@ -1,89 +1,173 @@
-// C++ code to demonstrate operations of Binary Index Tree
-#include <iostream>
+/********************************/
+//                              //
+// Code By-                     //
+//                              //
+// *******        ***           //
+//    *          *              //
+//    *          *   ***        //
+//    * ushar     ***  * upta   //
+//                              //
+//   aka Algoristy (अल्गोरिस्टी)  //
+//                              //
+/********************************/
 
+#include<bits/stdc++.h>
+#include<stdio.h>
 using namespace std;
 
-/*		 n --> No. of elements present in input array.
-	BITree[0..n] --> Array that represents Binary Indexed Tree.
-	arr[0..n-1] --> Input array for which prefix sum is evaluated. */
+typedef long long int in;
+typedef pair<in, in> pii;
+typedef vector<in> vi;
+typedef vector<vector<in>> vii;
+typedef unsigned long long ull;
+typedef long double lld;
+#define fast ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+#define loop(i, b) for(in i=0;i<b;i++)
+#define dloop(i, a, b) for(in i=a;i<=b;i++)
+#define rloop(i,n) for(in i=n-1;i>=0;i--)
+#define drloop(i, a, n) for(in i=n;i>=a;i--)
+#define pb(a) push_back(a)
+#define all(a) a.begin(),a.end()
+#define trav(a,b) for(auto &a: b)
+#define rtrav(a,b) for (auto a = b.rbegin(); a != b.rend(); a++) //use*a
+#define mod1 1000000007
+#define mod2 998244353
+#define ff first
+#define ss second
+#define elif else if
+#define gcd(a, b) (__gcd((a), (b)))
+inline in lcm(in a, in b) {return a / gcd(a, b) * b;}
+const in PI = acos((in) - 1);
+in powerm(in x, in y, in m) {
+    in res = 1; x = x % m; if (x == 0) return 0;
+    while (y > 0) {if (y & 1) res = (res * x) % m; y = y >> 1; x = (x * x) % m;} return res;
+}
+in power(in x, in y) {
+    in res = 1; if (x == 0) return 0;
+    while (y > 0) {if (y & 1) res = (res * x); y = y >> 1; x = (x * x);} return res;
+}
+inline in inv(in a, in p = mod1) {return powerm(a, p - 2, p);}
+in summ(in a, in b, in m = mod1) {return (a % m + b % m) % m;}
+in difm(in a, in b, in m = mod1) {return (a % m - b % m) % m;}
+in mulm(in a, in b, in m = mod1) {return (a % m * b % m) % m;}
+in divm(in a, in b, in m = mod1) {return mulm(a, inv(b, m), m);}
 
-// Returns sum of arr[0..index]. This function assumes
-// that the array is preprocessed and partial sums of
-// array elements are stored in BITree[].
-int getSum(int BITree[], int index)
-{
-	int sum = 0; // Initialize result
+#ifndef ONLINE_JUDGE
+#define debug(bnm) cerr << #bnm <<" "; _print(bnm); cerr << endl
+#else
+#define debug(bnm)
+#endif
 
-	// index in BITree[] is 1 more than the index in arr[]
-	index = index + 1;
+void _print(in t) {cerr << t;}
+void _print(int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(lld t) {cerr << t;}
+void _print(double t) {cerr << t;}
+void _print(ull t) {cerr << t;}
 
-	// Traverse ancestors of BITree[index]
-	while (index>0)
-	{
-		// Add current element of BITree to sum
-		sum += BITree[index];
+template <class T, class V> void _print(pair <T, V> p);
+template <class T> void _print(vector <T> v);
+template <class T> void _print(set <T> v);
+template <class T, class V> void _print(map <T, V> v);
+template <class T> void _print(multiset <T> v);
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.ff); cerr << ","; _print(p.ss); cerr << "}";}
+template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
-		// Move index to parent node in getSum View
-		index -= index & (-index);
-	}
-	return sum;
+#define MAX 1000001
+
+void preSolve(){}
+
+in tree[1000000] = {};
+
+void insertTree(in val, in ind, in n){
+
+    ind++;
+
+    while(ind <= n){
+        tree[ind] += val;
+        ind += ind&(-ind);
+    }
+
 }
 
-// Updates a node in Binary Index Tree (BITree) at given index
-// in BITree. The given value 'val' is added to BITree[i] and
-// all of its ancestors in tree.
-void updateBIT(int BITree[], int n, int index, int val)
-{
-	// index in BITree[] is 1 more than the index in arr[]
-	index = index + 1;
+in getSum(in ind, in n){
+    in sum = 0;
+    ind++;
 
-	// Traverse all ancestors and add 'val'
-	while (index <= n)
-	{
-	// Add 'val' to current node of BI Tree
-	BITree[index] += val;
+    while(ind > 0){
+        sum += tree[ind];
+        ind -= ind&(-ind);
+    }
 
-	// Update index to that of parent in update View
-	index += index & (-index);
-	}
+    return sum;
+
 }
 
-// Constructs and returns a Binary Indexed Tree for given
-// array of size n.
-int *constructBITree(int arr[], int n)
-{
-	// Create and initialize BITree[] as 0
-	int *BITree = new int[n+1];
-	for (int i=1; i<=n; i++)
-		BITree[i] = 0;
+in getRangeSum(in left, in right, in n){
+    return getSum(right, n) - getSum(left, n);
+}
 
-	// Store the actual values in BITree[] using update()
-	for (int i=0; i<n; i++)
-		updateBIT(BITree, n, i, arr[i]);
+void Solve(in tx) {
+     
+    //number of elements in an array
+    in n;
+    cin>>n;
 
-	// Uncomment below lines to see contents of BITree[]
-	//for (int i=1; i<=n; i++)
-	//	 cout << BITree[i] << " ";
+    //input the array
+    in arr[n];
+    loop(i, n) cin>>arr[i];
 
-	return BITree;
+    //creating the tree
+    loop(i, n){ 
+        insertTree(arr[i], i, n);
+    }
+
+    //number of test cases
+    in test_cases;
+    cin>>test_cases;
+
+    while(test_cases--){
+
+        in a,b,c;
+        cin>>a>>b>>c;
+
+        //if a == 1 then we had to update the value of arr[b] to c
+        if(a == 1){
+            insertTree(c-arr[b], b, n);
+        }
+        //else find the range sum of range b-c
+        else{
+            b--;
+            cout<<getRangeSum(b, c, n)<<endl;
+        }
+
+     }
+
+     //Time Complexity
+     //Creating the tree:- O(nlog(n))
+     //updating the tree:- O(log(n))
+     //getting range sum:- O(log(n))
+
 }
 
 
-// Driver program to test above functions
-int main()
-{
-	int freq[] = {2, 1, 1, 3, 2, 3, 4, 5, 6, 7, 8, 9};
-	int n = sizeof(freq)/sizeof(freq[0]);
-	int *BITree = constructBITree(freq, n);
-	cout << "Sum of elements in arr[0..5] is "
-		<< getSum(BITree, 5);
+int main() {
 
-	// Let use test the update operation
-	freq[3] += 6;
-	updateBIT(BITree, n, 3, 6); //Update BIT for above change in arr[]
+    fast;
+    #ifndef ONLINE_JUDGE
+        freopen("Error.tbnmt", "w", stderr);
+    #endif
 
-	cout << "\nSum of elements in arr[0..5] after update is "
-		<< getSum(BITree, 5);
+    preSolve();
 
-	return 0;
+    in t = 1;
+    // cin >> t;
+    loop(i, t)
+        Solve(i);
+
+    return 0;
 }
