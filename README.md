@@ -1,9 +1,9 @@
 [![HitCount](http://hits.dwyl.com/raushanraj358/HACKTOBERFEST.svg)](http://hits.dwyl.com/raushanraj358/HACKTOBERFEST)
 [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
 
-# <div align="center">🖥️HACKT0BERFEST-2021💻</div>
+# <div align="center">🖥️HACKT0BERFEST-2022💻</div>
 
-### <div align="center">This repo's main purpose is to help newbies👶 to complete the Hacktoberfest Challenge.</div>
+### <div align="center">This repo's main purpose is to help newbies👶 to complete the Hacktoberfest Challenge. All the PRs will be reviewed and merged before the event concludes. So Keep on raising Pull request. </div>
 <br></br>
 
 ### <div align="center">STEPS:-</div>
